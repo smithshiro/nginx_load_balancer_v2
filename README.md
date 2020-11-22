@@ -1,9 +1,11 @@
 # nginx load balancer sample
 
-ロードバランス構成の検証用
+ロードバランス(キャッシュサーバとオリジンサーバ)構成の検証用
 
 ## Getting Started
 
+## Image
+![Screenshot from 2020-11-22 17-15-32](https://user-images.githubusercontent.com/27280734/99898643-64318800-2ce6-11eb-8c87-974a8a3b03be.png)
 ### Prerequisites
 
 docker version
@@ -25,4 +27,5 @@ $ docker-compose up -d
 ## Running the tests
 http://localhost:10088にアクセス
 
-origin1_nginx,origin2_nginx,origin3_nginxのどれかにアクセスされているはず
+キャッシュがヒットすればcache1_nginx,cache2_nginx,cache3_nginxが返し
+キャッシュが存在しなければorigin1_nginx,origin2_nginx,origin3_nginxにアクセスして返すようになってる
