@@ -1,0 +1,53 @@
+version: '3'
+
+services:
+  load_balancer_nginx:
+    image: nginx:latest
+    volumes:
+      - ./docker/load_balancer_nginx/default.conf:/etc/nginx/conf.d/default.conf
+    ports:
+      - 10088:80
+    depends_on:
+      - cache1_nginx
+      - cache2_nginx
+      - cache3_nginx
+
+  cache1_nginx:
+    build: ./docker/cache_nginx
+    volumes:
+      - ./docker/cache_nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - origin1_nginx
+      - origin2_nginx
+      - origin3_nginx
+  cache2_nginx:
+    build: ./docker/cache_nginx
+    volumes:
+      - ./docker/cache_nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - origin1_nginx
+      - origin2_nginx
+      - origin3_nginx
+  cache3_nginx:
+    build: ./docker/cache_nginx
+    volumes:
+      - ./docker/cache_nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - origin1_nginx
+      - origin2_nginx
+      - origin3_nginx
+  origin1_nginx:
+    image: nginx:latest
+    volumes:
+      - ./docker/origin_nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - ./src:/var/www/html
+  origin2_nginx:
+    image: nginx:latest
+    volumes:
+      - ./docker/origin_nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - ./src:/var/www/html
+  origin3_nginx:
+    image: nginx:latest
+    volumes:
+      - ./docker/origin_nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - ./src:/var/www/html
